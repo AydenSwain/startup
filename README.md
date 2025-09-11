@@ -1,9 +1,8 @@
-**Change!!**
-# Green Dumpster
+# Green Dumpster Co.
 
 [My Notes](notes.md)
 
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+This repository contains the resourses for the development of a full stack website for a small business called Green Dumpster. It's purpose is going to allow users to enter on the site and rent a real large metal dumpster and have it delivered at the time the user discusses with the company. The website, when finished, will look professional, have the capability to make purchases, and converse with a manager in a real time chat to negotiate a delivery time.
 
 
 > [!NOTE]
@@ -19,15 +18,17 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
+- [X] Proper use of Markdown
+- [X] A concise and compelling elevator pitch
+- [X] Description of key features
+- [X] Description of how you will use each technology
 - [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Still putting off that home project that always becomes “next year’s” task? Let us help you lighten the load—literally. We take care of the waste management so you can focus on the transformation. Our exceptional customer service makes the process smooth from start to finish. Just ask your neighbors who use our service—they consistently tell us how much they appreciate the reliability and ease we provide.
+
+Ready to get started? Visit our professional webpage to choose the right dumpster size and speak directly with a manager about the best delivery time for your project.
 
 ### Design
 
@@ -44,20 +45,27 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Simplistic design that helps the user select the perfect dumpster
+- Animated windows that open as the user makes clarifying decisions 
+- Ability to chat with a manager
+- If the manager isn't online an email will be sent to them
+- If the manager can't get online quickly, the user is prompted to create an account
+- The account allows the managers to contact the customer at a later time
+- If the customer is ready to make a purchase they can through the website
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
+- **HTML** - Used in the layout of the website, which will constitute mostly one page for simlicity. There will also be an account page with payment information.
+- **CSS** - Used for carfully selected colors, fonts, and screen sizing capabilities.
+- **React** - Used for annimated windows allong with chat/account creation calls made to the server
 - **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+    - Chat
+    - Account creation
+    - Payment
+- **DB/Login** - Stores information about the user, their purchase, and chat history.
+- **WebSocket** - Provides capabilities for the live chat.
 
 ## 🚀 AWS deliverable
 
