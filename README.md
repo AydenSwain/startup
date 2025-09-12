@@ -44,17 +44,17 @@ sequenceDiagram
     participant Database
     participant Bank
 
-    Client->Server: Shows interest
-    Server->Manager: Notification
-    Manager-->Client: Accepts notification
-    Client->Manager: Realtime conversation
-    Client->Server: Creates account
-    Server->Database: Stores account info
-    Client->Bank: Makes payment
-    Manager-->Client: Doesn't accept notification
-    Client->Server: Creates account
-    Server->Database: Stores account info
-    Manager->Client: Contacts later through email
+    Client->>Server: Shows interest
+    Server->>Manager: Notification
+    Manager-->>Client: Accepts notification
+    Client->>Manager: Realtime conversation
+    Client->>Server: Creates account
+    Server->>Database: Stores account info
+    Client->>Bank: Makes payment
+    Manager-->>Client: Doesn't accept notification
+    Client->>Server: Creates account
+    Server->>Database: Stores account info
+    Manager->>Client: Contacts later through email
 ```
 
 ### Key features
