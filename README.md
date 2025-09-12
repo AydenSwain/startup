@@ -38,8 +38,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ```mermaid
 sequenceDiagram
-    title Sequence Diagram
-
     actor Client
     control Server
     actor Manager
