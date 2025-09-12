@@ -39,7 +39,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ```mermaid
 sequenceDiagram
     actor Client
+    control Server
     actor Manager
+    database db
+    control Bank
 
     Client->Server: Shows interest
     Server->Manager: Notification
