@@ -41,7 +41,7 @@ sequenceDiagram
     actor Client
     participant Server
     actor Manager
-    database db
+    participant db
     participant Bank
 
     Client->Server: Shows interest
