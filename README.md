@@ -41,7 +41,7 @@ sequenceDiagram
     actor Client
     participant Server
     actor Manager
-    participant db
+    participant Database
     participant Bank
 
     Client->Server: Shows interest
@@ -49,11 +49,11 @@ sequenceDiagram
     Manager-->Client: Accepts notification
     Client->Manager: Realtime conversation
     Client->Server: Creates account
-    Server->db: Stores account info
+    Server->Database: Stores account info
     Client->Bank: Makes payment
     Manager-->Client: Doesn't accept notification
     Client->Server: Creates account
-    Server->db: Stores account info
+    Server->Database: Stores account info
     Manager->Client: Contacts later through email
 ```
 
