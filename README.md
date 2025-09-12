@@ -38,16 +38,21 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ```mermaid
 sequenceDiagram
-    participant Client
-    participant Server
-    participant Manager
-    participant db
-    participant Bank
+    actor You
+    actor Website
+    You->>Website: Replace this with your design
+    title Sequence Diagram
 
+    actor Client
+    control Server
+    actor Manager
+    database db
+    control Bank
+    
     Client->Server: Shows interest
     Server->Manager: Notification
     Manager-->Client: Accepts notification
-    Manager<->Client: Realtime conversation
+    Client->Manager: Realtime conversation
     Client->Server: Creates account
     Server->db: Stores account info
     Client->Bank: Makes payment
