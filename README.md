@@ -30,12 +30,17 @@ Still putting off that home project that always becomes “next year’s” task
 
 Ready to get started? Visit our professional webpage to choose the right dumpster size and speak directly with a manager about the best delivery time for your project.
 
-### Design
+### UI
 
-![Design image](UI1.jpg)
+The first image is the look of the home page. It's followed by three other images which represent UI elements that would appear upon completing previous steps. Each new UI element/step would appear above the footer upon the completion of the previous step. This is done for simplicity.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+![Home page](UI1.jpg)
+![Step 2](UI2.jpg)
+![Step 2](UI2.jpg)
+![Step 3](UI3.jpg)
+![Final price](UI4.jpg)
 
+### Sequence Diagram
 ```mermaid
 sequenceDiagram
     actor Client
