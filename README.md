@@ -38,6 +38,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ```mermaid
 sequenceDiagram
+    participant Client
+    participant Server
+    participant Manager
+    participant db
+    participant Bank
+
     Client->Server: Shows interest
     Server->Manager: Notification
     Manager-->Client: Accepts notification
