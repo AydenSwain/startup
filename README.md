@@ -36,7 +36,6 @@ The first image is the look of the home page. It's followed by three other image
 
 ![Home page](UI1.jpg)
 ![Step 2](UI2.jpg)
-![Step 2](UI2.jpg)
 ![Step 3](UI3.jpg)
 ![Final price](UI4.jpg)
 
