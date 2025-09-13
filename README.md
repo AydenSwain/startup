@@ -78,7 +78,7 @@ I am going to use the required technologies in the following ways.
 - **HTML** - Used in the layout of the website, which will constitute mostly one page for simlicity. There will also be an account page with payment information.
 - **CSS** - Used for carfully selected colors, fonts, and screen sizing capabilities.
 - **React** - Used for annimated windows allong with chat/account creation calls made to the server
-- **Service** - Description here
+- **Service**
     - Chat
     - Account creation
     - Payment
