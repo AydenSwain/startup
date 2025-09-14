@@ -22,7 +22,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [X] A concise and compelling elevator pitch
 - [X] Description of key features
 - [X] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [X] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
@@ -30,12 +30,16 @@ Still putting off that home project that always becomes “next year’s” task
 
 Ready to get started? Visit our professional webpage to choose the right dumpster size and speak directly with a manager about the best delivery time for your project.
 
-### Design
+### UI
 
-![Design image](UI_1.jpg)
+The first image is the look of the home page. It's followed by three other images which represent UI elements that would appear upon completing previous steps. Each new UI element/step would appear above the footer upon the completion of the previous step. This is done for simplicity.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+![Home page](UI1.jpg)
+![Step 2](UI2.jpg)
+![Step 3](UI3.jpg)
+![Final price](UI4.jpg)
 
+### Sequence Diagram
 ```mermaid
 sequenceDiagram
     actor Client
@@ -74,7 +78,7 @@ I am going to use the required technologies in the following ways.
 - **HTML** - Used in the layout of the website, which will constitute mostly one page for simlicity. There will also be an account page with payment information.
 - **CSS** - Used for carfully selected colors, fonts, and screen sizing capabilities.
 - **React** - Used for annimated windows allong with chat/account creation calls made to the server
-- **Service** - Description here
+- **Service**
     - Chat
     - Account creation
     - Payment
