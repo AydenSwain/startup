@@ -1,5 +1,7 @@
 **Change!!**
 # CS 260 Notes
+Link to class GitHub: https://github.com/webprogramming260
+Very useful!
 
 ## Git/GitHub
 I already have plenty of experience with Git/GitHub, but it was fun learning about access tokens and how they can be useful.
@@ -17,6 +19,9 @@ My IP elastic address is: 23.21.202.91 I learned when setting up the server ther
 7. Website can be accessed with `http://[ip Adress]`
 8. Shell into the server using `ssh -i [key pair file] ubuntu@[ip address]` exit with `exit`
 9. Make the IP address elastic through allocating and associating it with the server. This will change the current IP address, but it will make it impossible to lose it. But you have to deactivate it if the server is terminated.
+
+## Route 53
+When I was creating new records for the domain when I was finally approved to get one. I needed to create two type A records, which they are by default. One for the exact url ex: `domain.click`, and one for all subdomains ex: `*.domain.click`.
 
 # Default notes
 [My startup - Simon](https://simon.cs260.click)
