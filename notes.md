@@ -1,4 +1,3 @@
-**Change!!**
 # CS 260 Notes
 Link to class GitHub: https://github.com/webprogramming260
 Very useful!
@@ -22,6 +21,12 @@ My IP elastic address is: 23.21.202.91 I learned when setting up the server ther
 
 ## Route 53
 When I was creating new records for the domain when I was finally approved to get one. I needed to create two type A records, which they are by default. One for the exact url ex: `domain.click`, and one for all subdomains ex: `*.domain.click`.
+
+## Caddy
+* Used as a proxy server, a point between the internet and the server
+* Provides security through LetsEncrypt, allowing for HTTPS
+* Allows us to take advantage of free software that does a good job at taking in web requests
+* It can recieve any request on port `:80` because it's the default for all HTTP trafic. But if you want the cirtificates from LetsEncrypt, you need to give it a domain name to wait for. That way it can establish HTTPS
 
 # Default notes
 [My startup - Simon](https://simon.cs260.click)
