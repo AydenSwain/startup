@@ -28,6 +28,9 @@ When I was creating new records for the domain when I was finally approved to ge
 * Allows us to take advantage of free software that does a good job at taking in web requests
 * It can recieve any request on port `:80` because it's the default for all HTTP trafic. But if you want the cirtificates from LetsEncrypt, you need to give it a domain name to wait for. That way it can establish HTTPS
 
+## HTML
+I just need to remember the structure of elements. That certain ones create blockes on the page, and certain ones are inline. `<html>` is parent to `<head>` and `<body>`. The second of which contains visual elements. It's also the parent to `<head>`, `<main>` and `<footer>` used to create structure.
+
 # Default notes
 [My startup - Simon](https://simon.cs260.click)
 
