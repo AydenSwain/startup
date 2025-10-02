@@ -34,3 +34,13 @@ h2 {
     text-align: center;
 }
 
+.white-rounded-box {
+    background-color: white;
+    border-radius: 15px;
+    padding: 1em;
+    margin: 3em;
+    display: inline-block;
+}
+
+
+
