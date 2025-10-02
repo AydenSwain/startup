@@ -1,8 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #4CAF50;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+header {
+    flex: 0 80px;
+    text-align: center;
+    padding: 1em 0;
 }
 
 nav {
@@ -13,3 +24,13 @@ nav {
 nav > * {
     margin: 0 1em;
 }
+
+.opening-photo {
+    max-width: 100%;
+    height: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
