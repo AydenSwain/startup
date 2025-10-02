@@ -89,21 +89,21 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://greendumpster.click).
 
 ## 🚀 HTML deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I created `index.html` as the home page, `login.html` as the login page, `chat.html` as the chat page.
+- [x] **Proper HTML element usage** - I used `<header>`, `<nav>`, `<main>`, and `<footer>` to organise the elements on the page
+- [x] **Links** - I created links in the `<nav>` element to other pages, also to my GitHub page in the `<footer>`.
+- [x] **Text** - There are instances where I use `<p>` and `<span>` to convey text.
+- [x] **3rd party API placeholder** - I created a text block on the home page as a placeholder.
+- [x] **Images** - There is a video and some dumpster images on the home page.
+- [x] **Login placeholder** - On the login page there is a `<form>` element to enter your email and password.
+- [x] **DB data placeholder** - On the login page under the `<form>` there is a placeholder for the username and the database contents with the order history of the user.
+- [x] **WebSocket placeholder** - I created a text block on the chat page as a placeholder.
 
 ## 🚀 CSS deliverable
 
