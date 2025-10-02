@@ -38,9 +38,10 @@ h2 {
 
 .white-rounded-box {
     background-color: white;
+    color: black;
     border-radius: 15px;
     padding: 1em;
-    margin: 3em;
+    margin: 1em;
     display: inline-block;
 }
 
