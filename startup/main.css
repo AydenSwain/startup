@@ -4,3 +4,12 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
+
+nav {
+    display: flex;
+    flex-direction: row;
+}
+
+nav > * {
+    margin: 0 1em;
+}
