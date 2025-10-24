@@ -31,6 +31,14 @@ When I was creating new records for the domain when I was finally approved to ge
 ## HTML
 I just need to remember the structure of elements. That certain ones create blockes on the page, and certain ones are inline. `<html>` is parent to `<head>` and `<body>`. The second of which contains visual elements. It's also the parent to `<head>`, `<main>` and `<footer>` used to create structure.
 
+## CSS
+Css is all about making sure that the sizing works, that elements dissapear with ceratain sizes. That the colors are easy to change with common variables. Using an external library like Bootstrap or Tailwind is best. Tailwind is what I'm learning. It's very efficient and gives you more controle than Bootstrap though Bootstrap is older more common. They both work with adding premade classes. Though Bootstrap also comes with React components. For tailwind you just need to learn how to name the classes and it will add the custom styles to the configuration automatically!
+
+## React routing
+What's more efficient than using traditional links to go to different html pages is to render one page and use js and React to change the middle part of the page to be what you want. This is what routing allows you to do. We learned how to use the `react-router-dom` library.
+
+Also, we used Vite to set up the project, because the live server vs code extention doesn't work with react, but Vite can! It can also do a lot more like build the project and get it ready for use.
+
 # Default notes
 [My startup - Simon](https://simon.cs260.click)
 

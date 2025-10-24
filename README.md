@@ -120,9 +120,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable.
+- [x] **Bundled using Vite** - I set up Vite as the development server.
+- [x] **Components** - I created `App`, `Home`, `Login`, and `Chat` components for navigation without refreshing.
+- [x] **Router** - I propperly set up routes using `react-router-dom` so that the URL changes with navigation and can be easily returned to.
 
 ## 🚀 React part 2: Reactivity deliverable
 
