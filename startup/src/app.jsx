@@ -10,6 +10,7 @@ import Chat from './chat/Chat.jsx';
 export default function App() {
 const [email, setEmail] = useState(localStorage.getItem('email') || null);
 const [isManager, setIsManager] = useState(localStorage.getItem('isManager') === 'true');
+const [chatHistory, setChatHistory] = useState([]);
 
 const handleSignOut = () => {
     localStorage.removeItem('email');
@@ -39,7 +40,7 @@ return (
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login email={email} setEmail={setEmail} isManager={isManager} setIsManager={setIsManager} />} />
-                    <Route path="/chat" element={!email ? (<h2>Login to chat<br /><NavLink to="/login">Go to Login</NavLink></h2>) : (<Chat />)} />
+                    <Route path="/chat" element={!email ? (<h2>Login to chat<br /><NavLink to="/login">Go to Login</NavLink></h2>) : (<Chat chatHistory={chatHistory} setChatHistory={setChatHistory} />)} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
