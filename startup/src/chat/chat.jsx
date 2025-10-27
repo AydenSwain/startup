@@ -30,7 +30,16 @@ export default function Chat({ chatHistory, setChatHistory }) {
 
 		return () => clearInterval(intervalId);
 	}, []);
-	
+
+	const handleSend = (event) => {
+		event.preventDefault();
+		const formData = new FormData(event.target);
+		const message = formData.get('message');
+		if (message.trim() === '') return;
+		setChatHistory(chatHistory => [...chatHistory, { sender: localStorage.getItem('email'), message }]);
+		event.target.reset();
+	};
+
 	return (
 		<main className="white-rounded-box" style={{width: "75%", height: "400px", overflowY: "scroll"}}>
 			<h2>Chat room</h2>
@@ -43,7 +52,11 @@ export default function Chat({ chatHistory, setChatHistory }) {
 			</div>
 
 			<div style={{ textAlign: "right" }}>
-				<input type="text" name="message" autoComplete="off" placeholder="Type message here..." />
+				{/* <input type="text" name="message" autoComplete="off" placeholder="Type message here..." /> */}
+				<form onSubmit={handleSend}>
+					<input type="text" name="message" autoComplete="off" placeholder="Type message here..." />
+					<button type="submit">Send</button>
+				</form>
 			</div>
 		</main>
 	);
