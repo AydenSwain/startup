@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
-import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, NavLink, useNavigate } from 'react-router-dom';
 import Home from './home/Home.jsx';
 import Login from './login/Login.jsx';
 import Chat from './chat/Chat.jsx';
@@ -38,7 +38,7 @@ return (
             <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/login" element={<Login email={email} setEmail={setEmail} isManager={isManager} setIsManager={setIsManager} />} />
                     <Route path="/chat" element={<Chat />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>

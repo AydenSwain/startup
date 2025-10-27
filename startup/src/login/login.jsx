@@ -1,25 +1,46 @@
 import React from 'react';
 import './login.css';
 import '../app.css';
+import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function Login({ setEmail, setIsManager }) {
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    setEmail(formData.get('email'));
+    localStorage.setItem('email', formData.get('email'));
+    
+    setIsManager(formData.get('isManager') === 'on');
+    localStorage.setItem('isManager', formData.get('isManager') === 'on');
+
+    navigate('/chat');
+  };
+
   return (
     <main>
-      <h2>Login or Create Account</h2>
-      <form method="get">
+      <h2>Login to see your orders</h2>
+      <form onSubmit={handleSubmit}>
           <div className="white-rounded-box">
-              <label for="email">Email: </label>
-              <input type="text" id="email" placeholder="your@email.com" />
+              <label for="email">Email:</label>
+              <input type="text" name="email" placeholder="your@email.com" />
           </div>
           <div className="white-rounded-box">
               <label for="password">Password: </label>
-              <input type="password" id="password" placeholder="password" />
+              <input type="password" name="password" placeholder="password" />
+          </div>
+          <div className="white-rounded-box">
+            <label>
+              <input type="checkbox" name="isManager" />
+              Manager login
+            </label>
           </div>
           <br />
 
           <div className="white-rounded-box" style={{ textAlign: 'center' }}>
               <button type="submit">Login</button>
-              <button type="submit">Create</button>
           </div>
       </form>
       <br />
