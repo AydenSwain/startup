@@ -39,7 +39,7 @@ return (
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login email={email} setEmail={setEmail} isManager={isManager} setIsManager={setIsManager} />} />
-                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/chat" element={!email ? (<h2>Login to chat<br /><NavLink to="/login">Go to Login</NavLink></h2>) : (<Chat />)} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>

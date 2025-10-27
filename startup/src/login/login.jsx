@@ -12,7 +12,7 @@ export default function Login({ setEmail, setIsManager }) {
 
     setEmail(formData.get('email'));
     localStorage.setItem('email', formData.get('email'));
-    
+
     setIsManager(formData.get('isManager') === 'on');
     localStorage.setItem('isManager', formData.get('isManager') === 'on');
 
@@ -21,7 +21,7 @@ export default function Login({ setEmail, setIsManager }) {
 
   return (
     <main>
-      <h2>Login to see your orders</h2>
+      <h2>Login to see chat history</h2>
       <form onSubmit={handleSubmit}>
           <div className="white-rounded-box">
               <label for="email">Email:</label>
@@ -34,7 +34,7 @@ export default function Login({ setEmail, setIsManager }) {
           <div className="white-rounded-box">
             <label>
               <input type="checkbox" name="isManager" />
-              Manager login
+              Login as Manager
             </label>
           </div>
           <br />
