@@ -128,7 +128,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **All functionality implemented or mocked out** - I made flow and login/logout much more streamline. I also added the ability to display sent messages.
+- [x] **All functionality implemented or mocked out** - I made flow and login/logout much more streamline. I also added the ability to display sent messages. Messages and login information are saved to local storage.
 - [x] **Hooks** - I used the `useState` hook to establish app wise state that could be accessed by several components. I also used the `useEvent` hook to have manager messages send automatically every 3 seconds.
 
 ## 🚀 Service deliverable
