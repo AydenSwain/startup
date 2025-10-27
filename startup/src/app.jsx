@@ -8,10 +8,14 @@ import Login from './login/Login.jsx';
 import Chat from './chat/Chat.jsx';
 
 export default function App() {
-const [email, setEmail] = useState(null);
+const [email, setEmail] = useState(localStorage.getItem('email') || null);
+const [isManager, setIsManager] = useState(localStorage.getItem('isManager') === 'true');
 
 const handleSignOut = () => {
+    localStorage.removeItem('email');
+    localStorage.removeItem('isManager');
     setEmail(null);
+    setIsManager(false);
 };
     
 
