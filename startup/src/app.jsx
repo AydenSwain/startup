@@ -10,7 +10,10 @@ import Chat from './chat/Chat.jsx';
 export default function App() {
 const [email, setEmail] = useState(localStorage.getItem('email') || null);
 const [isManager, setIsManager] = useState(localStorage.getItem('isManager') === 'true');
-const [chatHistory, setChatHistory] = useState([]);
+const [chatHistory, setChatHistory] = useState(() => {
+    const saved = localStorage.getItem('chatHistory');
+    return saved ? JSON.parse(saved) : [];
+});
 
 const handleSignOut = () => {
     localStorage.removeItem('email');
