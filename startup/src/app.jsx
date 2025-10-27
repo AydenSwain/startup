@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
@@ -8,7 +8,14 @@ import Login from './login/Login.jsx';
 import Chat from './chat/Chat.jsx';
 
 export default function App() {
-  return (
+const [email, setEmail] = useState(null);
+
+const handleSignOut = () => {
+    setEmail(null);
+};
+    
+
+return (
     <BrowserRouter>
         <div>
             <header>
@@ -16,8 +23,9 @@ export default function App() {
 
                 <nav>
                     <NavLink to="/">Home</NavLink>
-                    <NavLink to="/login">Login</NavLink>
                     <NavLink to="/chat">Chat</NavLink>
+                    {!email ? (<NavLink className="account" to="/login">Login</NavLink>)
+                              : (<button className="account" onClick={handleSignOut}>Sign out</button>)}
                 </nav>
 
                 <hr />
