@@ -83,6 +83,11 @@ apiRouter.post('/score', verifyAuth, (req, res) => {
   res.send(scores);
 });
 
+apiRouter.get('/test', (req, res) => {
+  console.log("Test endpoint hit");
+  res.send({test: "success"});
+});
+
 // Default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
