@@ -73,7 +73,8 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // GetScores
-apiRouter.get('/scores', verifyAuth, (_req, res) => {
+apiRouter.get('/scores', (_req, res) => {
+  console.log("Scores requested");
   res.send(scores);
 });
 
