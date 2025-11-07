@@ -43,13 +43,6 @@ export default function Login({ setEmail, setIsManager }) {
               <button type="submit">Login</button>
           </div>
       </form>
-      <br />
-
-      <span className="white-rounded-box" style={{ color: 'black', width: '75%', height: '300px' }}>Username: [---- Username from database -----]
-          <br />
-          <br />
-          [---- Order info collected from database -----]
-      </span>
       <br />                                                  
     </main>
   );
