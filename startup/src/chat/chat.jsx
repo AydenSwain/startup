@@ -3,6 +3,8 @@ import './chat.css';
 import '../app.css';
 
 export default function Chat({ chatHistory, setChatHistory }) {
+	const [chatHistory, setChatHistory] = useState();
+
 	React.useEffect(() => {
 		if (chatHistory && chatHistory.length > 0) {
 			localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
