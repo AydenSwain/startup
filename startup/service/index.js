@@ -7,7 +7,8 @@ const app = express();
 const authCookieName = 'token';
 
 // DB vars
-
+let users = [];
+let chatHistory = [];
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -71,21 +72,10 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-// GetScores
-apiRouter.get('/scores', (_req, res) => {
-  console.log("Scores requested");
-  res.send(scores);
-});
-
-// SubmitScore
-apiRouter.post('/score', verifyAuth, (req, res) => {
-  scores = updateScores(req.body);
-  res.send(scores);
-});
-
-apiRouter.get('/test', (req, res) => {
-  console.log("Test endpoint hit");
-  res.send({test: "success"});
+// Get chat history
+apiRouter.get('/chat', (_req, res) => {
+  console.log("Chat requested");
+  res.send(chatHistory);
 });
 
 // Default error handler
@@ -97,28 +87,6 @@ app.use(function (err, req, res, next) {
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
-
-// updateScores considers a new score for inclusion in the high scores.
-function updateScores(newScore) {
-  let found = false;
-  for (const [i, prevScore] of scores.entries()) {
-    if (newScore.score > prevScore.score) {
-      scores.splice(i, 0, newScore);
-      found = true;
-      break;
-    }
-  }
-
-  if (!found) {
-    scores.push(newScore);
-  }
-
-  if (scores.length > 10) {
-    scores.length = 10;
-  }
-
-  return scores;
-}
 
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
