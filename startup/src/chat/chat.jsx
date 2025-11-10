@@ -3,13 +3,14 @@ import './chat.css';
 import '../app.css';
 
 export default function Chat({ email }) {
-	const [chatHistory, setChatHistory] = useState();
+	const [chatHistory, setChatHistory] = React.useState([]);
 
 	React.useEffect(() => {
-		if (chatHistory && chatHistory.length > 0) {
-			localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
-		}
-	}, [chatHistory]);
+		fetch('/api/chat')
+			.then(res => res.json())
+			.then(data => setChatHistory(data))
+			.catch(err => console.error(err));
+	}, []);
 	
 	const managerMessages = [
 		{ sender: "Manager", message: "Hello, how can I assist you today?" },

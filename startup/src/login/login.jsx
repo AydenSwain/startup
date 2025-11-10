@@ -13,14 +13,20 @@ export default function Login({ email, setEmail }) {
 	const navigate = useNavigate();
 
 	async function loginUser() {
-		loginOrCreate(`/api/auth/login`);
-		navigate('/chat');
+		const success = await loginOrCreate(`/api/auth/login`);
+		if (success && email) {
+			navigate('/chat');
+		}
 	}
 
+
 	async function createUser() {
-		loginOrCreate(`/api/auth/create`);
-		navigate('/chat');
+		const success = await loginOrCreate(`/api/auth/create`);
+		if (success && email) {
+			navigate('/chat');
+		}
 	}
+
 
 		async function loginOrCreate(endpoint) {
 			const response = await fetch(endpoint, {

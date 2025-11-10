@@ -8,7 +8,7 @@ const authCookieName = 'token';
 
 // DB vars
 let users = [];
-let chatHistory = [];
+let chatHistory = [{ sender: "Manager", message: "This message came from the server!! There would normally be more messages here including messages written to history. But that will be included when websocket updates the database" }];
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
