@@ -13,52 +13,44 @@ export default function Login({ email, setEmail }) {
 	const navigate = useNavigate();
 
 	async function loginUser() {
-		const success = await loginOrCreate(`/api/auth/login`);
-		if (success && email) {
-			navigate('/chat');
-		}
+		loginOrCreate(`/api/auth/login`);
 	}
-
 
 	async function createUser() {
-		const success = await loginOrCreate(`/api/auth/create`);
-		if (success && email) {
-			navigate('/chat');
-		}
+		loginOrCreate(`/api/auth/create`);
 	}
 
+	async function loginOrCreate(endpoint) {
+		const response = await fetch(endpoint, {
+			method: 'POST',
+			body: JSON.stringify({ email: tempEmail, password: password, isManager: isManager }),
+			headers: {
+				'Content-Type': 'application/json; charset=UTF-8',
+			},
+		});
 
-		async function loginOrCreate(endpoint) {
-			const response = await fetch(endpoint, {
-				method: 'POST',
-				body: JSON.stringify({ email: tempEmail, password: password, isManager: isManager }),
-				headers: {
-					'Content-Type': 'application/json; charset=UTF-8',
-				},
-			});
-
-			if (response.ok) {
-				localStorage.setItem('email', tempEmail);
-				setEmail(tempEmail);
-				return;
-			}
-
-			// Try to extract a helpful error message without assuming JSON
-			let message = `HTTP ${response.status} ${response.statusText}`;
-			try {
-				const ct = response.headers.get('content-type') || '';
-				if (ct.includes('application/json')) {
-					const body = await response.json();
-					if (body?.msg) message = body.msg;
-				} else {
-					const text = await response.text();
-					if (text) message = text.substring(0, 200);
-				}
-			} catch {}
-			setDisplayError(`⚠ Error: ${message}`);
+		if (response.ok) {
+			localStorage.setItem('email', tempEmail);
+			setEmail(tempEmail);
+			navigate('/chat');
+			return true;
 		}
 
-	return (
+		// Try to extract a helpful error message without assuming JSON
+		let message = `HTTP ${response.status} ${response.statusText}`;
+		try {
+			const ct = response.headers.get('content-type') || '';
+			if (ct.includes('application/json')) {
+				const body = await response.json();
+				if (body?.msg) message = body.msg;
+			} else {
+				const text = await response.text();
+				if (text) message = text.substring(0, 200);
+			}
+		} catch {}
+		setDisplayError(`⚠ Error: ${message}`);
+		return false;
+	}	return (
 		<>
 			<h2>Login to see chat history</h2>
 			<div className="white-rounded-box">

@@ -110,11 +110,12 @@ async function findUser(field, value) {
 
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
+  const isProduction = process.env.NODE_ENV === 'production';
   res.cookie(authCookieName, authToken, {
     maxAge: 1000 * 60 * 60 * 24 * 365,
-    secure: true,
+    secure: isProduction, // only require https in production
     httpOnly: true,
-    sameSite: 'strict',
+    sameSite: isProduction ? 'strict' : 'lax',
   });
 }
 
