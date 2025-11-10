@@ -2,7 +2,7 @@ import React from 'react';
 import './chat.css';
 import '../app.css';
 
-export default function Chat({ chatHistory, setChatHistory }) {
+export default function Chat({ email }) {
 	const [chatHistory, setChatHistory] = useState();
 
 	React.useEffect(() => {

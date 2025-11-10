@@ -1,49 +1,73 @@
 import React from 'react';
 import './login.css';
 import '../app.css';
-import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import { MessageDialog } from './messageDialog';
 
-export default function Login({ setEmail }) {
-  const navigate = useNavigate();
+export default function Login({ email, setEmail }) {
+	const [tempEmail, setTempEmail] = React.useState(email || '');
+	const [password, setPassword] = React.useState('');
+	const [isManager, setIsManager] = React.useState(false);
+	const [displayError, setDisplayError] = React.useState(null);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
+	async function loginUser() {
+		loginOrCreate(`/api/auth/login`);
+	}
 
-    setEmail(formData.get('email'));
-    localStorage.setItem('email', formData.get('email'));
+	async function createUser() {
+		loginOrCreate(`/api/auth/create`);
+	}
 
-    setIsManager(formData.get('isManager') === 'on');
-    localStorage.setItem('isManager', formData.get('isManager') === 'on');
+	async function loginOrCreate(endpoint) {
+		const response = await fetch(endpoint, {
+			method: 'post',
+			body: JSON.stringify({ email: tempEmail, password: password, isManager: isManager }),
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+		});
+		if (response?.status === 200) {
+			localStorage.setItem('email', tempEmail);
+			setEmail(tempEmail);
+		} else {
+			const body = await response.json();
+			setDisplayError(`⚠ Error: ${body.msg}`);
+		}
+	}
 
-    navigate('/chat');
-  };
+	return (
+		<>
+			<h2>Login to see chat history</h2>
+			<div className="white-rounded-box">
+				<label htmlFor="email">Email:</label>
+				<input type="text" name="email" value={tempEmail} onChange={(e) => setTempEmail(e.target.value)} placeholder="your@email.com" />
+			</div>
+			<div className="white-rounded-box">
+				<label htmlFor="password">Password: </label>
+				<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" />
+			</div>
+			<div className="white-rounded-box">
+				<label>
+					<input type="checkbox" name="isManager" onChange={(e) => setIsManager(e.target.checked)} />
+					Login as Manager
+				</label>
+			</div>
+			<br />
+			
 
-  return (
-    <main>
-      <h2>Login to see chat history</h2>
-      <form onSubmit={handleSubmit}>
-          <div className="white-rounded-box">
-              <label for="email">Email:</label>
-              <input type="text" name="email" placeholder="your@email.com" />
-          </div>
-          <div className="white-rounded-box">
-              <label for="password">Password: </label>
-              <input type="password" name="password" placeholder="password" />
-          </div>
-          <div className="white-rounded-box">
-            <label>
-              <input type="checkbox" name="isManager" />
-              Login as Manager
-            </label>
-          </div>
-          <br />
+			<div>
+				<Button variant='secondary' onClick={loginUser} disabled={!tempEmail || !password}>
+					Login
+				</Button>
+				&nbsp; &nbsp;
+				<Button variant='secondary' onClick={createUser} disabled={!tempEmail || !password}>
+					Register
+				</Button>
 
-          <div className="white-rounded-box" style={{ textAlign: 'center' }}>
-              <button type="submit">Login</button>
-          </div>
-      </form>
-      <br />                                                  
-    </main>
-  );
+			</div>
+			<br />
+
+			<MessageDialog message={displayError} onHide={() => setDisplayError(null)} />
+		</>
+	);
 }
