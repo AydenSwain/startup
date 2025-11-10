@@ -3,7 +3,7 @@ import './login.css';
 import '../app.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login({ setEmail, setIsManager }) {
+export default function Login({ setEmail }) {
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {

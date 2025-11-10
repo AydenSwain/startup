@@ -10,8 +10,6 @@ import Chat from './chat/Chat.jsx';
 
 export default function App() {
 const [email, setEmail] = useState(localStorage.getItem('email') || null);
-const currentAuthState = email ? AuthState.Authenticated : AuthState.Unauthenticated;
-const [authState, setAuthState] = React.useState(currentAuthState);
 
 const handleSignOut = () => {
     fetch(`/api/auth/logout`, {
@@ -23,7 +21,6 @@ const handleSignOut = () => {
         .finally(() => {
             localStorage.removeItem('email');
             setEmail(null);
-            setAuthState(AuthState.Unauthenticated);
         });
 };
     
@@ -55,13 +52,9 @@ return (
                             <Login 
                                 email={email} 
                                 setEmail={setEmail} 
-                                isManager={isManager} 
-                                setIsManager={setIsManager} 
-                                authState={authState}
-                                setAuthState={setAuthState}
                             />} 
                     />
-                    <Route path="/chat" element={!email ? (<h2>Login to chat<br /><NavLink to="/login">Go to Login</NavLink></h2>) : (<Chat chatHistory={chatHistory} setChatHistory={setChatHistory} />)} />
+                    <Route path="/chat" element={!AuthState.Authenticated ? (<h2>Login to chat<br /><NavLink to="/login">Go to Login</NavLink></h2>) : (<Chat chatHistory={chatHistory} setChatHistory={setChatHistory} />)} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
