@@ -3,19 +3,23 @@ import './login.css';
 import '../app.css';
 import Button from 'react-bootstrap/Button';
 import { MessageDialog } from './messageDialog';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login({ email, setEmail }) {
 	const [tempEmail, setTempEmail] = React.useState(email || '');
 	const [password, setPassword] = React.useState('');
 	const [isManager, setIsManager] = React.useState(false);
 	const [displayError, setDisplayError] = React.useState(null);
+	const navigate = useNavigate();
 
 	async function loginUser() {
 		loginOrCreate(`/api/auth/login`);
+		navigate('/chat');
 	}
 
 	async function createUser() {
 		loginOrCreate(`/api/auth/create`);
+		navigate('/chat');
 	}
 
 		async function loginOrCreate(endpoint) {
