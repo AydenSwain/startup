@@ -10,15 +10,21 @@ import Chat from './chat/Chat.jsx';
 
 export default function App() {
 const [email, setEmail] = useState(localStorage.getItem('email') || null);
-const [isManager, setIsManager] = useState(localStorage.getItem('isManager') === 'true');
 const currentAuthState = email ? AuthState.Authenticated : AuthState.Unauthenticated;
 const [authState, setAuthState] = React.useState(currentAuthState);
 
 const handleSignOut = () => {
-    localStorage.removeItem('email');
-    localStorage.removeItem('isManager');
-    setEmail(null);
-    setIsManager(false);
+    fetch(`/api/auth/logout`, {
+        method: 'delete',
+    })
+        .catch(() => {
+            // Logout failed. Assuming offline
+        })
+        .finally(() => {
+            localStorage.removeItem('email');
+            setEmail(null);
+            setAuthState(AuthState.Unauthenticated);
+        });
 };
     
 
