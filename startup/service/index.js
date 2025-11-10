@@ -31,7 +31,7 @@ apiRouter.post('/auth/create', async (req, res) => {
   if (await findUser('email', req.body.email)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
-    const user = await createUser(req.body.email, req.body.password);
+    const user = await createUser(req.body.email, req.body.password, req.body.isManager);
 
     setAuthCookie(res, user.token);
     res.send({ email: user.email });
@@ -88,12 +88,13 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-async function createUser(email, password) {
+async function createUser(email, password, isManager) {
   const passwordHash = await bcrypt.hash(password, 10);
 
   const user = {
     email: email,
     password: passwordHash,
+    isManager: isManager,
     token: uuid.v4(),
   };
   users.push(user);
