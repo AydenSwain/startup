@@ -18,37 +18,53 @@ export default function Login({ email, setEmail }) {
 		loginOrCreate(`/api/auth/create`);
 	}
 
-	async function loginOrCreate(endpoint) {
-		const response = await fetch(endpoint, {
-			method: 'post',
-			body: JSON.stringify({ email: tempEmail, password: password, isManager: isManager }),
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8',
-			},
-		});
-		if (response?.status === 200) {
-			localStorage.setItem('email', tempEmail);
-			setEmail(tempEmail);
-		} else {
-			const body = await response.json();
-			setDisplayError(`⚠ Error: ${body.msg}`);
+		async function loginOrCreate(endpoint) {
+			const response = await fetch(endpoint, {
+				method: 'POST',
+				body: JSON.stringify({ email: tempEmail, password: password, isManager: isManager }),
+				headers: {
+					'Content-Type': 'application/json; charset=UTF-8',
+				},
+			});
+
+			if (response.ok) {
+				localStorage.setItem('email', tempEmail);
+				setEmail(tempEmail);
+				return;
+			}
+
+			// Try to extract a helpful error message without assuming JSON
+			let message = `HTTP ${response.status} ${response.statusText}`;
+			try {
+				const ct = response.headers.get('content-type') || '';
+				if (ct.includes('application/json')) {
+					const body = await response.json();
+					if (body?.msg) message = body.msg;
+				} else {
+					const text = await response.text();
+					if (text) message = text.substring(0, 200);
+				}
+			} catch {}
+			setDisplayError(`⚠ Error: ${message}`);
 		}
-	}
 
 	return (
 		<>
 			<h2>Login to see chat history</h2>
 			<div className="white-rounded-box">
-				<label htmlFor="email">Email:</label>
-				<input type="text" name="email" value={tempEmail} onChange={(e) => setTempEmail(e.target.value)} placeholder="your@email.com" />
+				<label>Email:</label>
+				&nbsp;
+				<input type="text" value={tempEmail} onChange={(e) => setTempEmail(e.target.value)} placeholder="your@email.com" />
 			</div>
 			<div className="white-rounded-box">
-				<label htmlFor="password">Password: </label>
-				<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" />
+				<label>Password: </label>
+				&nbsp;
+				<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="password" />
 			</div>
 			<div className="white-rounded-box">
 				<label>
-					<input type="checkbox" name="isManager" onChange={(e) => setIsManager(e.target.checked)} />
+					<input type="checkbox" onChange={(e) => setIsManager(e.target.checked)} />
+					&nbsp;
 					Login as Manager
 				</label>
 			</div>
