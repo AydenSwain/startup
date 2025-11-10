@@ -2,3 +2,8 @@ AydenSwain-webserver-cs260-key.pem
 AydenSwain-webserver-cs260-key.ppk
 
 node_modules/
+
+# Environment variables
+startup/.env
+*/.env
+.env

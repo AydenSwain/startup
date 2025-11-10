@@ -3,3 +3,8 @@
     height: auto;
     display: block;
 }
+
+CustomMap {
+    height: 400px;
+    width: 100%;
+}
