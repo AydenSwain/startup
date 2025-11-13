@@ -34,18 +34,12 @@ async function updateUser(user) {
   await userCollection.updateOne({ email: user.email }, { $set: user });
 }
 
-async function addScore(score) {
-  return scoreCollection.insertOne(score);
+function getChatHistory() {
+  return chatHistoryCollection.find().toArray();
 }
 
-function getHighScores() {
-  const query = { score: { $gt: 0, $lt: 900 } };
-  const options = {
-    sort: { score: -1 },
-    limit: 10,
-  };
-  const cursor = scoreCollection.find(query, options);
-  return cursor.toArray();
+async function addMessage(message) {
+  await chatHistoryCollection.insertOne(message);
 }
 
 module.exports = {
@@ -53,6 +47,6 @@ module.exports = {
   getUserByToken,
   addUser,
   updateUser,
-  addScore,
-  getHighScores,
+  addMessage,
+  getChatHistory,
 };

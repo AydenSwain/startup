@@ -45,6 +45,7 @@ apiRouter.post('/auth/login', async (req, res) => {
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
+      await DB.updateUser(user);
       setAuthCookie(res, user.token);
       res.send({ email: user.email });
       return;
@@ -58,6 +59,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
     delete user.token;
+    DB.updateUser(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -74,8 +76,8 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // Get chat history
-apiRouter.get('/chat', (_req, res) => {
-  console.log("Chat requested");
+apiRouter.get('/chat', async (_req, res) => {
+  const chatHistory = await DB.getChatHistory();
   res.send(chatHistory);
 });
 
@@ -125,4 +127,6 @@ function setAuthCookie(res, authToken) {
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
+
+  // DB.addMessage({ sender: "DB", message: "This message came from the Database!! There would normally be more messages here including messages written to history. But that will be included when websocket updates the database" });
 });
