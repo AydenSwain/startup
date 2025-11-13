@@ -135,12 +135,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - Done!
+- [x] **Static middleware for frontend** - Done!
+- [x] **Calls to third party endpoints** - Google maps on home page.
+- [x] **Backend service endpoints** - Login and chat history endpoints implemented!
+- [x] **Frontend calls service endpoints** - Done!
+- [x] **Supports registration, login, logout, and restricted endpoint** - Complete, the restricted endpoint is the chat history endpoint. There isn't a way to access it throught the UI unless you are logged in, but it also verified that you are authorised to call the endpoint.
 
 
 ## 🚀 DB deliverable
