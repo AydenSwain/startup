@@ -17,6 +17,7 @@
   "dependencies": {
     "@vis.gl/react-google-maps": "^1.7.1",
     "bootstrap": "^5.3.8",
+    "mongodb": "^7.0.0",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
