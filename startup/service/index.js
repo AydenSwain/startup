@@ -4,6 +4,7 @@ const express = require('express');
 const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
@@ -130,3 +131,5 @@ app.listen(port, () => {
 
   // DB.addMessage({ sender: "DB", message: "This message came from the Database!! There would normally be more messages here including messages written to history. But that will be included when websocket updates the database" });
 });
+
+peerProxy(httpService);
