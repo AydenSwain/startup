@@ -82,6 +82,12 @@ apiRouter.get('/chat', async (_req, res) => {
   res.send(chatHistory);
 });
 
+// Check if the user is a manager
+apiRouter.get('/isManager', async (req, res) => {
+  const user = await findUser('email', req.body.email);
+  res.send(user.isManager);
+});
+
 // Default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
