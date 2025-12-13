@@ -19,9 +19,9 @@ export default function Chat({ email }) {
 
 	{
 		!isManager ? (
-			<managerChat email={email}></managerChat>
+			<managerChat email={email} webSocket={new chatWS()}></managerChat>
 		) : (
-			<clientChat email={email}></clientChat>
+			<clientChat email={email} webSocket={new chatWS()}></clientChat>
 		)
 	}
-}""
+}

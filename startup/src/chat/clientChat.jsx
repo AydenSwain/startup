@@ -6,70 +6,17 @@ export default function ClientChat({ email, webSocket }) {
     const [chatHistory, setChatHistory] = React.useState([]);
     const [socket, setSocket] = React.useState(null);
 
+    
 
-    // Initialize WebSocket connection
-    React.useEffect(() => {
-        const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-        const ws = new WebSocket(`${protocol}://${window.location.hostname}:${window.location.port}/ws`);
-
-        ws.onopen = () => {
-            console.log('WebSocket connected');
-        };
-
-        ws.onmessage = (event) => {
-            try {
-                const message = JSON.parse(event.data);
-                setChatHistory(prev => [...prev, message]);
-            } catch (err) {
-                console.error('Error parsing message:', err);
-            }
-        };
-
-        ws.onerror = (error) => {
-            console.error('WebSocket error:', error);
-        };
-
-        ws.onclose = () => {
-            console.log('WebSocket disconnected');
-        };
-
-        setSocket(ws);
-
-        // Cleanup on unmount
-        return () => {
-            ws.close();
-        };
-    }, []);
-
+    // Load chat history
     React.useEffect(() => {
         fetch('/api/chat')
             .then(res => res.json())
             .then(data => setChatHistory(data))
             .catch(err => console.error(err));
     }, []);
-    
-    // const managerMessages = [
-    //     { sender: "Manager", message: "Hello, how can I assist you today?" },
-    //     { sender: "Manager", message: "We have a special discount on our 20 Yard Dumpster this week!" },
-    //     { sender: "Manager", message: "Our operating hours are from 8 AM to 6 PM, Monday to Saturday." },
-    //     { sender: "Manager", message: "Feel free to ask any questions about our services." }
-    // ];
 
-    // const sendRandomMessage = () => {
-    //     const randomIndex = Math.floor(Math.random() * managerMessages.length);
-    //     const randomMessage = managerMessages[randomIndex];
-    //     setChatHistory(chatHistory => [...chatHistory, randomMessage]);
-    // };
-
-    // React.useEffect(() => {
-    //     sendRandomMessage();
-    //     const intervalId = setInterval(() => {
-    //         sendRandomMessage();
-    //     }, 5000);
-
-    //     return () => clearInterval(intervalId);
-    // }, []);
-
+    // function for sending messages
     const handleSend = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
