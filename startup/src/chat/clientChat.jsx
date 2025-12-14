@@ -45,7 +45,7 @@ export default function ClientChat({ email, webSocket }) {
             <br />
 
             <div>
-                {!chatHistory.length ? (<p>No message history ...</p>) : (chatHistory.map((entry, index) => (
+                {!chatHistory.length ? (<p>No message history...</p>) : (chatHistory.map((entry, index) => (
                     <p key={index}><b>{entry.sender}:</b> {entry.message}</p>
                 )))}
             </div>
