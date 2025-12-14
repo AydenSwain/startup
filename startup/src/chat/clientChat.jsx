@@ -4,7 +4,7 @@ import '../app.css';
 
 export default function ClientChat({ email, webSocket }) {
     const [chatHistory, setChatHistory] = React.useState([]);
-    const [managerEmail, setManagerEmail] = React.useState([null]);
+    const [managerEmail, setManagerEmail] = React.useState(null);
     
     // Load chat history
     React.useEffect(() => {
@@ -16,14 +16,14 @@ export default function ClientChat({ email, webSocket }) {
 
     // Observer for incoming messages
     React.useEffect(() => {
-        webSocket.addObserver((newMessage) => {
-            if (newMessage.message === ''){
-                setManagerEmail(null);
-                return;
+        webSocket.addObserver((message) => {
+            if (message.type === 'error') {
+                console.error('WebSocket error:', message.message);
+            } else if (message.sender && message.message) {
+                // Incoming message from manager
+                setManagerEmail(message.sender);
+                setChatHistory((chatHistory) => [...chatHistory, message]);
             }
-
-            setManagerEmail(newMessage.sender);
-            setChatHistory((chatHistory) => [...chatHistory, newMessage]);
         });
     }, [webSocket]);
 
@@ -34,7 +34,7 @@ export default function ClientChat({ email, webSocket }) {
         const message = formData.get('message');
         if (message.trim() === '') return;
         
-        webSocket.sendMessage({ type: 'sendMessage', message: message, targetEmail: managerEmail}); };
+        webSocket.sendMessage({ type: 'sendMessage', message: message, targetEmail: managerEmail});
         
         event.target.reset();
     };

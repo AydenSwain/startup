@@ -82,8 +82,12 @@ function peerProxy(httpServer, DB, authCookieName) {
               }
             }
 
-            if (targetSocket && targetSocket.readyState === WebSocket.OPEN) {
-              targetSocket.send(command.message);
+            if (targetSocket && targetSocket.readyState === 1) { // 1 = OPEN
+              // Send message with sender info
+              targetSocket.send(JSON.stringify({
+                sender: userInfo.email,
+                message: command.message
+              }));
 
             } else {
               socket.send(JSON.stringify({

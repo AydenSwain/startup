@@ -1,10 +1,13 @@
 import React from 'react';
 import './chat.css';
 import '../app.css';
+import ClientChat from './clientChat';
+import ManagerChat from './managerChat';
+import ChatWS from './chatWS';
 
 export default function Chat({ email }) {
-	const [isManager, setIsManager] = React.useState([false]);
-	
+	const [isManager, setIsManager] = React.useState(false);
+	const [webSocket, setWebSocket] = React.useState(null);
 
 	React.useEffect(() => {
 		fetch('/api/isManager')
@@ -12,16 +15,25 @@ export default function Chat({ email }) {
 			.then(data => setIsManager(data))
 			.catch(err => console.error(err));
 
-		const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-		this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+		// Initialize WebSocket once
+		const ws = new ChatWS();
+		setWebSocket(ws);
 
+		return () => {
+			// Cleanup WebSocket on unmount
+			if (ws && ws.socket) {
+				ws.socket.close();
+			}
+		};
 	}, []);
 
-	{
-		!isManager ? (
-			<managerChat email={email} webSocket={new chatWS()}></managerChat>
-		) : (
-			<clientChat email={email} webSocket={new chatWS()}></clientChat>
-		)
+	if (!webSocket) {
+		return <div>Connecting...</div>;
 	}
+
+	return isManager ? (
+		<ManagerChat email={email} webSocket={webSocket} />
+	) : (
+		<ClientChat email={email} webSocket={webSocket} />
+	);
 }

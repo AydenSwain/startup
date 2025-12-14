@@ -84,7 +84,7 @@ apiRouter.get('/chat', verifyAuth, async (_req, res) => {
 
 // Check if the user is a manager
 apiRouter.get('/isManager', verifyAuth, async (req, res) => {
-  const user = await findUser('email', req.body.email);
+  const user = await findUser('token', req.cookies[authCookieName]);
   res.send(user.isManager);
 });
 
@@ -132,10 +132,10 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-server = app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 
   // DB.addMessage({ sender: "DB", message: "This message came from the Database!! There would normally be more messages here including messages written to history. But that will be included when websocket updates the database" });
 });
 
-peerProxy(server);
+peerProxy(server, DB, authCookieName);

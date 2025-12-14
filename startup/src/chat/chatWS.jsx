@@ -1,4 +1,4 @@
-class chatWS {
+class ChatWS {
     observers = [];
     connected = false;
 
@@ -9,35 +9,46 @@ class chatWS {
 
         // Display that we have opened the webSocket
         this.socket.onopen = (event) => {
-            this.notifyObservers('system', 'websocket', 'connected');
+            console.log('WebSocket connected');
             this.connected = true;
         };
 
-        // Display messages we receive from our friends
+        // Display messages we receive from the server
         this.socket.onmessage = async (event) => {
-            const text = await event.data.text();
-            const chat = JSON.parse(text);
-            this.notifyObservers('received', chat.name, chat.msg);
+            try {
+                const text = await event.data.text();
+                const message = JSON.parse(text);
+                
+                // Notify all observers with the parsed message
+                this.notifyObservers(message);
+            } catch (error) {
+                console.error('Error parsing WebSocket message:', error);
+            }
         };
 
         // If the webSocket is closed then disable the interface
         this.socket.onclose = (event) => {
-            this.notifyObservers('system', 'websocket', 'disconnected');
+            console.log('WebSocket disconnected');
             this.connected = false;
         };
     }
 
     // Send a message over the webSocket
-    sendMessage(name, msg) {
-        this.notifyObservers('sent', 'me', msg);
-        this.socket.send(JSON.stringify({ name, msg }));
+    sendMessage(messageObj) {
+        if (this.connected && this.socket.readyState === WebSocket.OPEN) {
+            this.socket.send(JSON.stringify(messageObj));
+        } else {
+            console.error('WebSocket is not connected');
+        }
     }
 
     addObserver(observer) {
         this.observers.push(observer);
     }
 
-    notifyObservers(event, from, msg) {
-        this.observers.forEach((h) => h({ event, from, msg }));
+    notifyObservers(message) {
+        this.observers.forEach((observer) => observer(message));
     }
 }
+
+export default ChatWS;
