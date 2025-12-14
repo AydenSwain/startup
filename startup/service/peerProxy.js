@@ -75,9 +75,13 @@ function peerProxy(httpServer, DB, authCookieName) {
             const targetEmail = command.targetEmail;
             let targetSocket = null;
 
+            console.log(`Looking for target email: "${targetEmail}"`);
+            console.log('Available users:', Array.from(socketUsers.values()).map(u => u.email));
+
             for (const [sock, info] of socketUsers.entries()) {
               if (info.email === targetEmail) {
                 targetSocket = sock;
+                console.log(`Found socket for ${targetEmail}, readyState: ${sock.readyState}`);
                 break;
               }
             }
@@ -88,8 +92,17 @@ function peerProxy(httpServer, DB, authCookieName) {
                 sender: userInfo.email,
                 message: command.message
               }));
+              
+              // Echo the message back to sender for their chat history
+              socket.send(JSON.stringify({
+                sender: userInfo.email,
+                message: command.message
+              }));
+              
+              console.log(`Message sent from ${userInfo.email} to ${targetEmail}`);
 
             } else {
+              console.log(`Target not found or disconnected. Socket exists: ${!!targetSocket}, readyState: ${targetSocket?.readyState}`);
               socket.send(JSON.stringify({
                 type: 'error',
                 message: 'Other user not found or disconnected'
@@ -136,6 +149,8 @@ function peerProxy(httpServer, DB, authCookieName) {
         });
       }
     });
+
+    console.log('Sending client list to manager:', clientList);
 
     managerSocket.send(JSON.stringify({
       type: 'clientList',
