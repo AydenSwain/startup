@@ -4,10 +4,7 @@ import '../app.css';
 
 export default function ClientChat({ email, webSocket }) {
     const [chatHistory, setChatHistory] = React.useState([]);
-    const [socket, setSocket] = React.useState(null);
-
     
-
     // Load chat history
     React.useEffect(() => {
         fetch('/api/chat')
@@ -16,13 +13,21 @@ export default function ClientChat({ email, webSocket }) {
             .catch(err => console.error(err));
     }, []);
 
+    // Observer for incoming messages
+    React.useEffect(() => {
+        webSocket.addObserver((newMessage) => {
+            setChatHistory((chatHistory) => [...chatHistory, newMessage]);
+        });
+    }, [webSocket]);
+
     // function for sending messages
     const handleSend = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const message = formData.get('message');
         if (message.trim() === '') return;
-        setChatHistory(chatHistory => [...chatHistory, { sender: localStorage.getItem('email'), message }]);
+        
+        webSocket.sendMessage(email, message);
         
         event.target.reset();
     };
