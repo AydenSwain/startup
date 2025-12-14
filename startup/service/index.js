@@ -56,7 +56,7 @@ apiRouter.post('/auth/login', async (req, res) => {
 });
 
 // DeleteAuth logout a user
-apiRouter.delete('/auth/logout', async (req, res) => {
+apiRouter.delete('/auth/logout', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
     delete user.token;
@@ -77,13 +77,13 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // Get chat history
-apiRouter.get('/chat', async (_req, res) => {
+apiRouter.get('/chat', verifyAuth, async (_req, res) => {
   const chatHistory = await DB.getChatHistory();
   res.send(chatHistory);
 });
 
 // Check if the user is a manager
-apiRouter.get('/isManager', async (req, res) => {
+apiRouter.get('/isManager', verifyAuth, async (req, res) => {
   const user = await findUser('email', req.body.email);
   res.send(user.isManager);
 });
@@ -132,10 +132,10 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(port, () => {
+server = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 
   // DB.addMessage({ sender: "DB", message: "This message came from the Database!! There would normally be more messages here including messages written to history. But that will be included when websocket updates the database" });
 });
 
-peerProxy(httpService);
+peerProxy(server);
