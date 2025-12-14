@@ -28,6 +28,16 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+// Middleware to verify that the user is authorized to call an endpoint
+const verifyAuth = async (req, res, next) => {
+  const user = await findUser('token', req.cookies[authCookieName]);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+};
+
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
   if (await findUser('email', req.body.email)) {
@@ -60,32 +70,25 @@ apiRouter.delete('/auth/logout', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
     delete user.token;
-    DB.updateUser(user);
+    await DB.updateUser(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
 });
 
-// Middleware to verify that the user is authorized to call an endpoint
-const verifyAuth = async (req, res, next) => {
-  const user = await findUser('token', req.cookies[authCookieName]);
-  if (user) {
-    next();
-  } else {
-    res.status(401).send({ msg: 'Unauthorized' });
-  }
-};
-
 // Get chat history
 apiRouter.get('/chat', verifyAuth, async (_req, res) => {
   const chatHistory = await DB.getChatHistory();
-  res.send(chatHistory);
+  res.json(chatHistory);
 });
 
 // Check if the user is a manager
 apiRouter.get('/isManager', verifyAuth, async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
-  res.send(user.isManager);
+  if (!user) {
+    return res.status(401).send({ msg: 'Unauthorized' });
+  }
+  res.json(user.isManager);
 });
 
 // Default error handler
@@ -116,9 +119,9 @@ async function findUser(field, value) {
   if (!value) return null;
 
   if (field === 'token') {
-    return DB.getUserByToken(value);
+    return await DB.getUserByToken(value);
   }
-  return DB.getUser(value);
+  return await DB.getUser(value);
 }
 
 // setAuthCookie in the HTTP response

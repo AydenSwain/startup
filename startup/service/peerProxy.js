@@ -49,7 +49,7 @@ function peerProxy(httpServer, DB, authCookieName) {
 
     socket.on('message', async function message(data) {
       try {
-        const command = JSON.parse(data);
+        const command = JSON.parse(data.toString());
         const userInfo = socketUsers.get(socket);
 
         if (!userInfo) {
@@ -130,7 +130,7 @@ function peerProxy(httpServer, DB, authCookieName) {
 
     clientSockets.forEach((clientSocket) => {
       const clientInfo = socketUsers.get(clientSocket);
-      if (clientInfo && clientSocket.readyState === WebSocket.OPEN) {
+      if (clientInfo && clientSocket.readyState === 1) { // 1 = OPEN
         clientList.push({
           email: clientInfo.email,
         });
@@ -146,7 +146,7 @@ function peerProxy(httpServer, DB, authCookieName) {
   // Helper function to notify all managers of updated client list
   function notifyManagersOfClientList() {
     managerSockets.forEach((managerSocket) => {
-      if (managerSocket.readyState === WebSocket.OPEN) {
+      if (managerSocket.readyState === 1) { // 1 = OPEN
         sendClientListToManager(managerSocket);
       }
     });
