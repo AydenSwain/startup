@@ -34,7 +34,7 @@ export default function ClientChat({ email, webSocket }) {
         const message = formData.get('message');
         if (message.trim() === '') return;
         
-        webSocket.sendMessage(email, message);
+        webSocket.sendMessage({ type: 'sendMessage', message: message, targetEmail: managerEmail}); };
         
         event.target.reset();
     };
@@ -53,7 +53,6 @@ export default function ClientChat({ email, webSocket }) {
             {!managerEmail ? (<p style={{ color: "red" }}>Waiting for a manager to connect...</p>) : null}
 
             <div style={{ textAlign: "right" }}>
-                {/* <input type="text" name="message" autoComplete="off" placeholder="Type message here..." /> */}
                 <form onSubmit={handleSend}>
                     <input type="text" name="message" autoComplete="off" placeholder="Type message here..." />
                     <button type="submit">Send</button>

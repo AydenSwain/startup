@@ -4,14 +4,7 @@ import '../app.css';
 
 export default function ClientChat({ email, webSocket }) {
     const [chatHistory, setChatHistory] = React.useState([]);
-    
-    // Load chat history
-    React.useEffect(() => {
-        fetch('/api/chat')
-            .then(res => res.json())
-            .then(data => setChatHistory(data))
-            .catch(err => console.error(err));
-    }, []);
+    const [clientEmail, setClientEmail] = React.useState([null]);
 
     // Observer for incoming messages
     React.useEffect(() => {
@@ -27,7 +20,7 @@ export default function ClientChat({ email, webSocket }) {
         const message = formData.get('message');
         if (message.trim() === '') return;
         
-        webSocket.sendMessage(email, message);
+        webSocket.sendMessage({ type: 'sendMessage', message: message, targetEmail: clientEmail});
         
         event.target.reset();
     };
@@ -44,7 +37,6 @@ export default function ClientChat({ email, webSocket }) {
             </div>
 
             <div style={{ textAlign: "right" }}>
-                {/* <input type="text" name="message" autoComplete="off" placeholder="Type message here..." /> */}
                 <form onSubmit={handleSend}>
                     <input type="text" name="message" autoComplete="off" placeholder="Type message here..." />
                     <button type="submit">Send</button>

@@ -58,20 +58,6 @@ function peerProxy(httpServer, DB, authCookieName) {
         }
 
         switch (command.type) {
-          case 'sendMessage':
-            // Broadcast to everyone
-            socketServer.clients.forEach((client) => {
-              if (client !== socket && client.readyState === WebSocket.OPEN) {
-                client.send(JSON.stringify({
-                  type: 'newMessage',
-                  sender: userInfo.email,
-                  message: command.message,
-                  isManager: userInfo.isManager
-                }));
-              }
-            });
-            break;
-
           case 'requestClientList':
             // Manager requesting list of clients
             if (!userInfo.isManager) {
@@ -84,22 +70,13 @@ function peerProxy(httpServer, DB, authCookieName) {
             sendClientListToManager(socket);
             break;
 
-          case 'messageToClient':
-            // Manager sending message to specific client
-            if (!userInfo.isManager) {
-              socket.send(JSON.stringify({
-                type: 'error',
-                message: 'Manager access required'
-              }));
-              return;
-            }
-
-            // Find the target client socket
+          case 'sendMessage':
+            // Find the target socket
             const targetEmail = command.targetEmail;
             let targetSocket = null;
 
             for (const [sock, info] of socketUsers.entries()) {
-              if (info.email === targetEmail && !info.isManager) {
+              if (info.email === targetEmail) {
                 targetSocket = sock;
                 break;
               }
@@ -111,7 +88,7 @@ function peerProxy(httpServer, DB, authCookieName) {
             } else {
               socket.send(JSON.stringify({
                 type: 'error',
-                message: 'Client not found or disconnected'
+                message: 'Other user not found or disconnected'
               }));
             }
             break;
