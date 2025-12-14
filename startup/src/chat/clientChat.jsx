@@ -19,6 +19,8 @@ export default function ClientChat({ email, webSocket }) {
         webSocket.addObserver((message) => {
             if (message.type === 'error') {
                 console.error('WebSocket error:', message.message);
+            } else if (message.message === '') {
+                setManagerEmail(null);
             } else if (message.sender && message.message) {
                 // Incoming message from manager
                 setManagerEmail(message.sender);

@@ -44,21 +44,34 @@ export default function ManagerChat({ email, webSocket }) {
         event.target.reset();
     };
 
+    const handleBackToClientList = () => {
+        // Send empty message to disconnect client
+        webSocket.sendMessage({ type: 'sendMessage', message: '', targetEmail: clientEmail});
+        setClientEmail(null);
+    };
+
     return (
         <main className="white-rounded-box" style={{width: "75%", height: "400px", overflowY: "scroll"}}>
             <h2>Manager Chat</h2>
             <br />
 
-            <div>
-                <label>Select Client: </label>
-                <select value={clientEmail || ''} onChange={(e) => setClientEmail(e.target.value)}>
-                    <option value="">-- Select a client --</option>
-                    {clientList.map((client, index) => (
-                        <option key={index} value={client.email}>{client.email}</option>
-                    ))}
-                </select>
-                {clientList.length === 0 && <span style={{marginLeft: '10px', color: 'gray'}}>No clients connected</span>}
-            </div>
+            {!clientEmail ? (
+                <div>
+                    <label>Select Client: </label>
+                    <select value={clientEmail || ''} onChange={(e) => setClientEmail(e.target.value)}>
+                        <option value="">-- Select a client --</option>
+                        {clientList.map((client, index) => (
+                            <option key={index} value={client.email}>{client.email}</option>
+                        ))}
+                    </select>
+                    {clientList.length === 0 && <span style={{marginLeft: '10px', color: 'gray'}}>No clients connected</span>}
+                </div>
+            ) : (
+                <div>
+                    <span>Chatting with: <b>{clientEmail}</b></span>
+                    <button onClick={handleBackToClientList} style={{marginLeft: '10px'}}>Back to Client List</button>
+                </div>
+            )}
             <br />
 
             <div>
