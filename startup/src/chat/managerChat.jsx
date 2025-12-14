@@ -7,23 +7,29 @@ export default function ManagerChat({ email, webSocket }) {
     const [clientEmail, setClientEmail] = React.useState(null);
     const [clientList, setClientList] = React.useState([]);
 
-    // Request client list when component mounts
-    React.useEffect(() => {
-        webSocket.sendMessage({ type: 'requestClientList' });
-    }, [webSocket]);
-
     // Observer for incoming messages
     React.useEffect(() => {
         webSocket.addObserver((message) => {
+            console.log('Manager received message:', message);
             if (message.type === 'clientList') {
+                console.log('Setting client list:', message.clients);
                 setClientList(message.clients);
             } else if (message.type === 'error') {
                 console.error('WebSocket error:', message.message);
-            } else {
+            } else if (message.sender && message.message) {
                 // Regular message
                 setChatHistory((chatHistory) => [...chatHistory, message]);
             }
         });
+
+        // Request client list after observer is set up
+        // Wait a bit for WebSocket to be connected
+        const timer = setTimeout(() => {
+            console.log('Requesting client list');
+            webSocket.sendMessage({ type: 'requestClientList' });
+        }, 100);
+
+        return () => clearTimeout(timer);
     }, [webSocket]);
 
     // function for sending messages
@@ -44,18 +50,19 @@ export default function ManagerChat({ email, webSocket }) {
             <br />
 
             <div>
-                <label>Select Client:</label>
+                <label>Select Client: </label>
                 <select value={clientEmail || ''} onChange={(e) => setClientEmail(e.target.value)}>
                     <option value="">-- Select a client --</option>
                     {clientList.map((client, index) => (
                         <option key={index} value={client.email}>{client.email}</option>
                     ))}
                 </select>
+                {clientList.length === 0 && <span style={{marginLeft: '10px', color: 'gray'}}>No clients connected</span>}
             </div>
             <br />
 
             <div>
-                {!chatHistory.length ? (<p>Waiting for messages...</p>) : (chatHistory.map((entry, index) => (
+                {!chatHistory.length ? (<p>No messages yet...</p>) : (chatHistory.map((entry, index) => (
                     <p key={index}><b>{entry.sender}:</b> {entry.message}</p>
                 )))}
             </div>
