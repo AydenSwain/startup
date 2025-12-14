@@ -4,6 +4,7 @@ import '../app.css';
 
 export default function ClientChat({ email, webSocket }) {
     const [chatHistory, setChatHistory] = React.useState([]);
+    const [managerEmail, setManagerEmail] = React.useState([null]);
     
     // Load chat history
     React.useEffect(() => {
@@ -16,6 +17,12 @@ export default function ClientChat({ email, webSocket }) {
     // Observer for incoming messages
     React.useEffect(() => {
         webSocket.addObserver((newMessage) => {
+            if (newMessage.message === ''){
+                setManagerEmail(null);
+                return;
+            }
+
+            setManagerEmail(newMessage.sender);
             setChatHistory((chatHistory) => [...chatHistory, newMessage]);
         });
     }, [webSocket]);
@@ -38,10 +45,12 @@ export default function ClientChat({ email, webSocket }) {
             <br />
 
             <div>
-                {!chatHistory.length ? (<p>Waiting for messages...</p>) : (chatHistory.map((entry, index) => (
+                {!chatHistory.length ? (<p>No message history ...</p>) : (chatHistory.map((entry, index) => (
                     <p key={index}><b>{entry.sender}:</b> {entry.message}</p>
                 )))}
             </div>
+
+            {!managerEmail ? (<p style={{ color: "red" }}>Waiting for a manager to connect...</p>) : null}
 
             <div style={{ textAlign: "right" }}>
                 {/* <input type="text" name="message" autoComplete="off" placeholder="Type message here..." /> */}
